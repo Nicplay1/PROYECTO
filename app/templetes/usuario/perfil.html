@@ -1,0 +1,886 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Perfil Usuario</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-dark: #0f2027;
+            --primary-medium: #1a4a3a;
+            --primary-light: #2d6a4f;
+            --accent-green: #40916c;
+            --success-green: #52b788;
+            --background: #fafdf9;
+            --surface: #ffffff;
+            --text-primary: #1b2e35;
+            --text-secondary: #64748b;
+            --text-light: #f8fafc;
+            --border: #e2e8f0;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, var(--background) 0%, #f0f9f4 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Sidebar moderno */
+        #sidebar {
+            background: linear-gradient(180deg, var(--primary-dark) 0%, var(--primary-medium) 100%);
+            width: 280px;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-lg);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        #sidebar.collapsed {
+            transform: translateX(-100%);
+        }
+
+        .sidebar-header {
+            padding: 2rem 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-img:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-text {
+            color: var(--text-light);
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            padding: 1.5rem 0;
+        }
+
+        .nav-section {
+            margin-bottom: 2rem;
+        }
+
+        .nav-section-title {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 0 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.875rem;
+            padding: 0.875rem 1.5rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            position: relative;
+            margin: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-weight: 500;
+        }
+
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 0;
+            background: var(--accent-green);
+            border-radius: 0 12px 12px 0;
+            transition: width 0.2s ease;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            transform: translateX(4px);
+        }
+
+        .nav-item.active::before {
+            width: 4px;
+        }
+
+        .nav-item i {
+            width: 20px;
+            text-align: center;
+            font-size: 1.125rem;
+        }
+
+        .user-section {
+            padding: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .user-info {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .user-name {
+            color: white;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .user-role {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.8rem;
+            margin-top: 0.25rem;
+        }
+
+        /* Contenido principal */
+        .main-content {
+            margin-left: 280px;
+            min-height: 100vh;
+            transition: margin-left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .main-content.expanded {
+            margin-left: 0;
+        }
+
+        .content-header {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 2rem 2.5rem 1.5rem;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .page-title {
+            color: var(--primary-dark);
+            font-size: 2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin: 0;
+        }
+
+        .page-title i {
+            color: var(--accent-green);
+        }
+
+        .content-body {
+            padding: 2.5rem;
+        }
+
+        /* Botón móvil mejorado */
+        .mobile-toggle {
+            position: fixed;
+            top: 1.5rem;
+            left: 1.5rem;
+            z-index: 1100;
+            background: var(--primary-dark);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow);
+            transition: all 0.2s ease;
+            display: none;
+        }
+
+        .mobile-toggle:hover {
+            background: var(--primary-medium);
+            transform: scale(1.05);
+        }
+
+        /* Botones modernos */
+        .btn-modern {
+            background: linear-gradient(135deg, var(--accent-green) 0%, var(--success-green) 100%);
+            border: none;
+            color: white;
+            padding: 0.625rem 1.25rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-modern:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(64, 145, 108, 0.3);
+            color: white;
+        }
+
+        .btn-modern:active {
+            transform: translateY(0);
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            border: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .btn-warning:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+            color: white;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+            border: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+            color: white;
+        }
+
+        /* Tarjetas de perfil */
+        .profile-card {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .profile-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .profile-title {
+            color: var(--primary-dark);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Formularios modernos */
+        .form-control-modern {
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            padding: 0.75rem 1rem;
+            font-size: 0.875rem;
+            color: var(--text-primary);
+            transition: all 0.2s ease;
+            width: 100%;
+        }
+
+        .form-control-modern:focus {
+            outline: none;
+            border-color: var(--accent-green);
+            box-shadow: 0 0 0 3px rgba(64, 145, 108, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        /* Tablas con estilo moderno */
+        .table-modern {
+            background: var(--surface);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            width: 100%;
+        }
+
+        .table-modern th {
+            background-color:black ;
+            color: white;
+            padding: 1rem 1.25rem;
+            font-weight: 600;
+            text-align: left;
+        }
+
+        .table-modern td {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-primary);
+        }
+
+        .table-modern tr:last-child td {
+            border-bottom: none;
+        }
+
+        .table-modern tr:hover {
+            background-color: rgba(64, 145, 108, 0.05);
+        }
+
+        /* Modal mejorado */
+        .modal-content {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border);
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, var(--primary-medium) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .modal-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .modal-footer {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.75rem;
+        }
+
+        /* Alertas mejoradas */
+        .alert-modern {
+            border: none;
+            border-radius: 16px;
+            padding: 1rem 1.25rem;
+            margin-bottom: 1rem;
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 500;
+        }
+
+        .alert-success {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(22, 163, 74, 0.1) 100%);
+            color: #166534;
+            border: 1px solid rgba(34, 197, 94, 0.2);
+        }
+
+        .alert-error {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(220, 38, 38, 0.1) 100%);
+            color: #991b1b;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        .alert-info {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(37, 99, 235, 0.1) 100%);
+            color: #1e40af;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .alerts-container {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1200;
+            max-width: 400px;
+        }
+
+        /* Estado vacío */
+        .empty-state {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--text-secondary);
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            color: var(--border);
+            margin-bottom: 1rem;
+        }
+
+        /* Grid para el diseño de perfil */
+        .profile-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .mobile-toggle {
+                display: flex;
+            }
+
+            #sidebar {
+                transform: translateX(-100%);
+            }
+
+            #sidebar.active {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .content-header {
+                padding: 1.5rem;
+            }
+
+            .content-body {
+                padding: 1.5rem;
+            }
+
+            .alerts-container {
+                right: 1rem;
+                left: 1rem;
+                max-width: none;
+            }
+
+            .profile-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animaciones */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .alert-modern {
+            animation: slideIn 0.3s ease;
+        }
+
+        /* Overlay para móvil */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+            backdrop-filter: blur(2px);
+        }
+
+        .sidebar-overlay.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Alertas -->
+    {% if messages %}
+    <div class="alerts-container">
+        {% for message in messages %}
+            <div class="alert-modern alert-{% if message.tags == 'success' %}success{% elif message.tags == 'error' %}error{% else %}info{% endif %} fade show" role="alert">
+                {% if message.tags == "success" %}
+                    <i class="fas fa-check-circle"></i>
+                {% elif message.tags == "error" %}
+                    <i class="fas fa-times-circle"></i>
+                {% else %}
+                    <i class="fas fa-info-circle"></i>
+                {% endif %}
+                <div>{{ message }}</div>
+            </div>
+        {% endfor %}
+    </div>
+    <script>
+        setTimeout(() => {
+            document.querySelectorAll('.alert-modern').forEach(el => {
+                el.classList.remove('show');
+                setTimeout(() => el.remove(), 300);
+            });
+        }, 4000);
+    </script>
+    {% endif %}
+
+    <!-- Botón móvil -->
+    <button class="mobile-toggle" id="toggleSidebar">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Overlay para móvil -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar -->
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo-container">
+                <img src="{% static 'img/Logo Fontibon.png' %}" alt="Logo" class="logo-img">
+                <div class="logo-text">Panel Administrativo</div>
+            </div>
+        </div>
+
+        <div class="sidebar-nav">
+            <div class="nav-section">
+                <div class="nav-section-title">Gestión</div>
+                {% if usuario.id_rol.id_rol == 2 %}
+                    <!-- Menú para RESIDENTE -->
+                    <a href="{% url 'detalle_residente' %}" class="nav-item">
+                        <i class="fas fa-newspaper"></i>
+                        <span>Noticias</span>
+                    </a>
+                    <a href="{% url 'listar_zonas' %}" class="nav-item">
+                        <i class="fas fa-building"></i>
+                        <span>Zonas</span>
+                    </a>
+                    <a href="{% url 'mis_reservas' %}" class="nav-item">
+                        <i class="fas fa-calendar-check"></i>
+                        <span>Reservas</span>
+                    </a>
+                {% elif usuario.id_rol.id_rol == 3 %}
+                    <!-- Menú para ADMINISTRADOR -->
+                    <a href="{% url 'gestionar_usuarios' %}" class="nav-item">
+                        <i class="fas fa-users-cog"></i>
+                        <span>Gestionar Usuarios</span>
+                    </a>
+                    <a href="{% url 'gestionar_reservas' %}" class="nav-item">
+                        <i class="fas fa-tasks"></i>
+                        <span>Gestionar Reservas</span>
+                    </a>
+                    <a href="{% url 'listar_noticias' %}" class="nav-item">
+                        <i class="fas fa-newspaper"></i>
+                        <span>Noticias</span>
+                    </a>
+                    <a href="{% url 'lista_vehiculos' %}" class="nav-item">
+                        <i class="fas fa-car"></i>
+                        <span>Vehículos</span>
+                    </a>
+                    <a href="{% url 'sorteos_list_create' %}" class="nav-item">
+                        <i class="fas fa-gift"></i>
+                        <span>Sorteos</span>
+                    </a>
+
+                    {% elif usuario.id_rol.id_rol == 4 %}
+                     <a href="{% url 'registrar_detalle_parqueadero' %}" class="nav-item ">
+                    <i class="fas fa-parking"></i>
+                    <span>Parqueadero</span>
+                </a>
+
+                <a href="{% url 'registro_correspondencia' %}" class="nav-item ">
+                    <i class="fas fa-parking"></i>
+                    <span>Paquetes/Recibos</span>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="user-section">
+            <div class="user-info">
+                <div class="user-name">{{ usuario.nombres }} {{ usuario.apellidos }}</div>
+                <div class="user-role">
+                    {% if usuario.id_rol.id_rol == 2 %}Residente{% elif usuario.id_rol.id_rol == 3 %}Administrador{% endif %}
+                </div>
+            </div>
+            <a href="{% url 'perfil_usuario' %}" class="nav-item active">
+                <i class="fas fa-user"></i>
+                <span>Mi Perfil</span>
+            </a>
+            <a href="{% url 'logout' %}" class="nav-item">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Cerrar Sesión</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Contenido Principal -->
+    <main class="main-content" id="mainContent">
+        <div class="content-header">
+            <h1 class="page-title">
+                <i class="fas fa-user"></i>
+                Perfil de Usuario
+            </h1>
+        </div>
+
+        <div class="content-body">
+            <div class="profile-grid">
+                <!-- Columna izquierda: Perfil -->
+                <div class="profile-card">
+                    <h3 class="profile-title">
+                        <i class="fas fa-user-circle"></i> Información Personal
+                    </h3>
+                    <form method="POST" class="space-y-4">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="correo">Correo</label>
+                            {{ form_usuario.correo }}
+                        </div>
+                        <div class="form-group">
+                            <label for="celular">Número Celular</label>
+                            {{ form_usuario.celular }}
+                        </div>
+                        <div class="form-group">
+                            <label for="telefono">Número Telefónico</label>
+                            {{ form_usuario.telefono }}
+                        </div>
+
+                        <button type="submit" name="usuario_submit" class="btn-modern">
+                            <i class="fas fa-save"></i> Actualizar
+                        </button>
+                    </form>
+                    
+                    <!-- Botón cambiar contraseña -->
+                    <div class="mt-4">
+                        <button class="btn-warning" data-bs-toggle="modal" data-bs-target="#modalPassword">
+                            <i class="fas fa-key"></i> Cambiar Contraseña
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Columna derecha: Detalles de residente -->
+                {% if usuario.id_rol.id_rol == 2 %}
+                <div class="profile-card">
+                    <h3 class="profile-title">
+                        <i class="fas fa-home"></i> Detalles de Residente
+                    </h3>
+                    <div class="space-y-3">
+                        <p><strong>Torre:</strong> {{ residente.torre }}</p>
+                        <p><strong>Apartamento:</strong> {{ residente.apartamento }}</p>
+                        <p><strong>Propietario:</strong> {{ residente.propietario|yesno:"Sí,No" }}</p>
+                        <p><strong>Estado:</strong> {{ usuario.estado }}</p>
+                    </div>
+                    <button class="btn-modern mt-4" data-bs-toggle="modal" data-bs-target="#modalVehiculo">
+                        <i class="fas fa-car"></i> Registrar Vehículo
+                    </button>
+                </div>
+                {% elif usuario.id_rol.id_rol == 3 %}
+                <div class="profile-card">
+                    <h3 class="profile-title">
+                        <i class="fas fa-shield-alt"></i> Permisos de Administrador
+                    </h3>
+                    <p>Este usuario tiene permisos de administración y puede gestionar todos los aspectos del sistema.</p>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Lista de Vehículos -->
+            <div class="profile-card">
+                <h3 class="profile-title">
+                    <i class="fas fa-car"></i> Mis Vehículos Registrados
+                </h3>
+
+                {% if vehiculos %}
+                    <div class="table-responsive">
+                        <table class="table-modern">
+                            <thead>
+                                <tr>
+                                    <th>Placa</th>
+                                    <th>Tipo</th>
+                                    <th>Activo</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for v in vehiculos %}
+                                    <tr>
+                                        <td>{{ v.placa }}</td>
+                                        <td>{{ v.tipo_vehiculo }}</td>
+                                        <td>{% if v.activo %}  Sí {% else %}  No {% endif %}</td>
+                                        <td>
+                                            <a href="{% url 'detalles' v.id_vehiculo_residente %}" class="btn-modern btn-sm">
+                                                <i class="fas fa-eye"></i> Ver Detalles
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="empty-state">
+                        <i class="fas fa-car"></i>
+                        <div>No tienes vehículos registrados aún.</div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal Registrar Vehículo -->
+    <div class="modal fade" id="modalVehiculo" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title"><i class="fas fa-car"></i> Registrar Vehículo</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <form method="POST">
+                {% csrf_token %}
+                {{ form_vehiculo.as_p }}
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" name="vehiculo_submit" class="btn-modern">Guardar Vehículo</button>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Cambiar Contraseña -->
+    <div class="modal fade" id="modalPassword" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form method="POST" action="{% url 'cambiar_contrasena' %}">
+            {% csrf_token %}
+            <div class="modal-header">
+              <h5 class="modal-title"><i class="fas fa-key"></i> Cambiar Contraseña</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <label class="form-label">Nueva Contraseña</label>
+                <input type="password" name="nueva_contraseña" class="form-control-modern">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Confirmar Contraseña</label>
+                <input type="password" name="confirmar_contraseña" class="form-control-modern">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+              <button type="submit" class="btn-modern">Guardar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Script para el sidebar -->
+    <script>
+        const toggleBtn = document.getElementById('toggleSidebar');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+        const mainContent = document.getElementById('mainContent');
+
+        function toggleSidebar() {
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        toggleBtn.addEventListener('click', toggleSidebar);
+        overlay.addEventListener('click', toggleSidebar);
+
+        // Cerrar sidebar con tecla Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && sidebar.classList.contains('active')) {
+                toggleSidebar();
+            }
+        });
+
+        // Manejo responsive automático
+        function handleResize() {
+            if (window.innerWidth > 768) {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+            }
+        }
+
+        window.addEventListener('resize', handleResize);
+    </script>
+</body>
+</html>

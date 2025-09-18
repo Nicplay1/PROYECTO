@@ -1,0 +1,529 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <title>Altos Fontibón</title>
+    <link rel="stylesheet" href="{% static 'css/usuario/index.css' %}">
+</head>
+<style>
+  .contador-seccion {
+    background: url("static/IMG/ciudad.jpg");
+    padding: 80px 0;
+  }
+
+</style>
+<body>
+<!--Menu responsive con logo y menu desplegable-->
+    <header class="header">
+        <nav class="navbar">
+            <a href="#" class="logo">
+                <img src="{% static 'IMG/Logo Fontibon.png' %}" alt="Logo de mi página">
+            </a>
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Inicio</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        Noticias
+                        <span class="dropdown-arrow">▼</span>
+                    </a>
+                    <div class="dropdown">
+                        <a href="#" class="dropdown-item">Últimas Noticias</a>
+                        <a href="#" class="dropdown-item">Comunicados</a>
+                        <a href="#" class="dropdown-item">Eventos</a>
+                        <a href="#" class="dropdown-item">Boletines</a>
+                    </div>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        Administración
+                        <span class="dropdown-arrow">▼</span>
+                    </a>
+                    <div class="dropdown">
+                        <a href="#" class="dropdown-item">Grupo</a>
+                        <a href="#" class="dropdown-item">Servicios prestados</a>
+                        <a href="#" class="dropdown-item">Horarios de antencion</a>
+                    </div>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        Servicios
+                        <span class="dropdown-arrow">▼</span>
+                    </a>
+                    <div class="dropdown">
+                        <a href="#" class="dropdown-item">Portería</a>
+                        <a href="#" class="dropdown-item">Mantenimiento</a>
+                        <a href="#" class="dropdown-item">Zonas Comunes</a>
+                        <a href="#" class="dropdown-item">Parqueaderos</a>
+                        <a href="#" class="dropdown-item">Vigilancia</a>
+                    </div>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        Contáctanos
+                        <span class="dropdown-arrow">▼</span>
+                    </a>
+                    <div class="dropdown">
+                        <a href="#" class="dropdown-item">Información</a>
+                        <a href="#" class="dropdown-item">PQR</a>
+                        <a href="#" class="dropdown-item">Ubicación</a>
+                        <a href="#" class="dropdown-item">Calendario</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="button iniciar-sesion-btn">
+                        <a href="{% url 'login' %}" class="btn btn-success btn-Iniciar-Sesion">
+                            Iniciar Sesión
+                        </a>
+                    </div>
+                </li>
+            </ul>
+          
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+    <!-- Indicadores -->
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"></button>
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"></button>
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"></button>
+    </div>
+
+    <!-- Imágenes del carrusel -->
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="{% static 'IMG/Foto Principal .png' %}" class="d-block w-100" alt="IMG de mi página">
+        <div class="carousel-caption">
+          <h5 class="titulo">Conjunto Recidencial</h5>
+          <p class="subtitulo">Altos de Fontibón</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="{% static 'IMG/contacto.jpg' %}" class="d-block w-100" alt="IMG de mi página">
+        <div class="carousel-caption">
+          <h5 class="segundo-titulo">Para saber mas Información</h5>
+          <p class="segundo-sudtitulo">Diligencia nuestro formulario</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="{% static 'IMG/noticia.jpg' %}" class="d-block w-100" alt="IMG de mi página">
+        <div class="carousel-caption">
+          <h5 class="tercer-titulo">¿No sabes que hay de nuevo?</h5>
+          <p class="tercer-sudtitulo">Mira nustras ultimas noticias</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Controles -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+      <span class="carousel-control-next-icon"></span>
+    </button>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+  <script src="{% static 'js/usuario/script.js' %}"></script>
+<!--Descripcion del conjunto-->
+<div class="container py-4">
+  <div class="text-center mb-3">
+    <p class="mini-titulo"><strong> NUESTRA PAGINA WEB</strong></p>
+    <h3 class="semi-sudtitulo">CONOCE QUIENES SOMOS NOSOTROS</h3>
+    <div class="subrayado-verde"></div>
+    <p class="contenido"> 
+    Nosotros somos Altos de Fontibón, El lugar donde las personas cumplen el sueño de tener casa <br>propia y encuentran el lugar perfecto para la vida familiar, indiviual, o en pareja.<br> 
+    Coexistimos y convivimos con la naturaleza, un medio ambiente sano en paz y tranquilidad.<br>
+    Aqui encontraras información útil tanto si es o no residente actual del conjunto.</p>
+  </div>
+</div>
+
+<!--Parte de Incremento-->
+
+<section class="contador-seccion d-flex align-items-center text-white text-center">
+  <div class="container">
+    <div class="row justify-content-center">
+
+      <div class="col-md-4">
+        <h2 class="numero" data-target="15">0</h2>
+        <p>Conjunto residenciales<br>Registrados y en crecimiento</p>
+      </div>
+
+      <div class="col-md-4">
+        <h2 class="numero" data-target="12800">0</h2>
+        <p>Residentes Conectados y<br>en estadía.</p>
+      </div>
+
+      <div class="col-md-4">
+        <h2 class="numero" data-target="32720">0</h2>
+        <p>Clientes satisfechos con <br>nuestros servicios</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--Parte de Testimonios-->
+
+ <section class="testimonials-section">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-subtitle">Clientes</p>
+                <h2 class="section-title">Testimonios</h2>
+            </div>
+
+            <div class="testimonials-container" id="testimonialsContainer">
+                <!-- Los testimonios se generarán dinámicamente -->
+            </div>
+
+            <div class="carousel-controls">
+                <button class="carousel-btn" id="prevBtn">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                
+                <div class="carousel-dots" id="dotsContainer">
+                    <!-- Los dots se generarán dinámicamente -->
+                </div>
+                
+                <button class="carousel-btn" id="nextBtn">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Datos de testimonios
+        const testimonials = [
+            {
+                text: "La plataforma nos llevó a otro nivel, porque nos permitió adaptarnos a todos los tiempos digitales, así afirmamos asistencia a nuestros lugares.",
+                author: "Ana García",
+                stars: 5
+            },
+            {
+                text: "Esta aplicación nos ayudó mucho para informarnos del manejo del dinero, además de que con su red social nos comunicamos más rápido y ahorramos tiempo.",
+                author: "Carlos Rodríguez",
+                stars: 5
+            },
+            {
+                text: "Esta aplicación nos ayudó a comunicarnos más fácilmente con los residentes, manteníamos más ordenados en los registros de los ingresos y egresos, además de que los vecinos han podido promocionar sus servicios dentro de la misma privada.",
+                author: "María López",
+                stars: 5
+            },
+            {
+                text: "La plataforma nos ayudó mucho para facilitar nuestros archivos del dinero, además de que con su red social nos comunicamos más rápido y ahorramos tiempo.",
+                author: "José Martínez",
+                stars: 5
+            },
+            {
+                text: "Esta aplicación nos ayudó a comunicarnos más fácilmente con los residentes y mantener todo organizado.",
+                author: "Laura Hernández",
+                stars: 4
+            },
+            {
+                text: "Una herramienta fundamental para la gestión de nuestra comunidad. Altamente recomendada.",
+                author: "Pedro Sánchez",
+                stars: 5
+            }
+        ];
+
+        let currentIndex = 0;
+        const testimonialsContainer = document.getElementById('testimonialsContainer');
+        const dotsContainer = document.getElementById('dotsContainer');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        // Generar testimonios
+        function generateTestimonials() {
+            testimonialsContainer.innerHTML = '';
+            
+            testimonials.forEach((testimonial, index) => {
+                const card = document.createElement('div');
+                card.className = 'testimonial-card';
+                card.innerHTML = `
+                    <div class="stars">
+                        ${'★'.repeat(testimonial.stars)}${'☆'.repeat(5 - testimonial.stars)}
+                    </div>
+                    <div class="testimonial-text">"${testimonial.text}"</div>
+                    <div class="testimonial-author">- ${testimonial.author}</div>
+                `;
+                
+                card.addEventListener('click', () => goToSlide(index));
+                testimonialsContainer.appendChild(card);
+            });
+        }
+
+        // Generar dots
+        function generateDots() {
+            dotsContainer.innerHTML = '';
+            
+            testimonials.forEach((_, index) => {
+                const dot = document.createElement('div');
+                dot.className = 'dot';
+                dot.addEventListener('click', () => goToSlide(index));
+                dotsContainer.appendChild(dot);
+            });
+        }
+
+        // Posicionar testimonios
+        function positionTestimonials() {
+            const cards = document.querySelectorAll('.testimonial-card');
+            const dots = document.querySelectorAll('.dot');
+            
+            cards.forEach((card, index) => {
+                card.classList.remove('active', 'left', 'center-left', 'center', 'center-right', 'right', 'hidden');
+                
+                const position = (index - currentIndex + testimonials.length) % testimonials.length;
+                
+                switch(position) {
+                    case 0:
+                        card.classList.add('center', 'active');
+                        break;
+                    case 1:
+                        card.classList.add('center-right');
+                        break;
+                    case 2:
+                        card.classList.add('right');
+                        break;
+                    case testimonials.length - 1:
+                        card.classList.add('center-left');
+                        break;
+                    case testimonials.length - 2:
+                        card.classList.add('left');
+                        break;
+                    default:
+                        card.classList.add('hidden');
+                }
+            });
+            
+            // Actualizar dots
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentIndex);
+            });
+        }
+
+        // Ir a slide específico
+        function goToSlide(index) {
+            currentIndex = index;
+            positionTestimonials();
+        }
+
+        // Siguiente slide
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % testimonials.length;
+            positionTestimonials();
+        }
+
+        // Slide anterior
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + testimonials.length) % testimonials.length;
+            positionTestimonials();
+        }
+
+        // Auto-play
+        let autoPlayInterval;
+        
+        function startAutoPlay() {
+            autoPlayInterval = setInterval(nextSlide, 5000);
+        }
+        
+        function stopAutoPlay() {
+            clearInterval(autoPlayInterval);
+        }
+
+        // Event listeners
+        prevBtn.addEventListener('click', () => {
+            prevSlide();
+            stopAutoPlay();
+            setTimeout(startAutoPlay, 10000);
+        });
+
+        nextBtn.addEventListener('click', () => {
+            nextSlide();
+            stopAutoPlay();
+            setTimeout(startAutoPlay, 10000);
+        });
+
+        // Pausar auto-play al hacer hover
+        testimonialsContainer.addEventListener('mouseenter', stopAutoPlay);
+        testimonialsContainer.addEventListener('mouseleave', startAutoPlay);
+
+        // Soporte para swipe en móviles
+        let startX = 0;
+        let endX = 0;
+
+        testimonialsContainer.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+        });
+
+        testimonialsContainer.addEventListener('touchend', (e) => {
+            endX = e.changedTouches[0].clientX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const threshold = 50;
+            const diff = startX - endX;
+            
+            if (Math.abs(diff) > threshold) {
+                if (diff > 0) {
+                    nextSlide();
+                } else {
+                    prevSlide();
+                }
+                stopAutoPlay();
+                setTimeout(startAutoPlay, 10000);
+            }
+        }
+
+        // Soporte para teclado
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                prevSlide();
+                stopAutoPlay();
+                setTimeout(startAutoPlay, 10000);
+            } else if (e.key === 'ArrowRight') {
+                nextSlide();
+                stopAutoPlay();
+                setTimeout(startAutoPlay, 10000);
+            }
+        });
+
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', () => {
+            generateTestimonials();
+            generateDots();
+            positionTestimonials();
+            startAutoPlay();
+        });
+    </script>
+
+<!--Parte de Contacto-->
+  <div class="container py-4">
+    <div class="text-center mb-3">
+      <p class="subtitulo">CONTACTO</p>
+      <h2 class="titulo">Formulario de contacto</h2>
+      <p class="descripcion">
+        Regístrate aquí y uno de nuestros asesores se pondrá en contacto contigo para brindarte más información.<br />
+        <span class="obligatorio">Los campos marcados con (*) son obligatorios</span>
+      </p>
+      <hr class="linea-separadora">
+    </div>
+
+    <div class="row">
+      <div class="col-md-4 text-center mb-4 mb-md-0">
+        <img src="{% static 'img/Contacto foto dentro.jpg' %}" alt="Imagen" class="img-fluid imagen-formulario" />
+      </div>
+
+      <div class="col-md-8">
+        <form class="row g-3" id="formularioContacto">
+          <div class="col-md-6">
+            <label for="nombre" class="form-label">NOMBRE*</label>
+            <input type="text" class="form-control input-personalizado" id="nombre" placeholder="Ingresa Tu Nombre" required />
+          </div>
+          <div class="col-md-6">
+            <label for="correo" class="form-label">CORREO ELECTRONICO*</label>
+            <input type="email" class="form-control input-personalizado" id="correo" placeholder="Ingresa Tu Nombre" required />
+          </div>
+          <div class="col-md-6">
+            <label for="apellidos" class="form-label">APELLIDOS*</label>
+            <input type="text" class="form-control input-personalizado" id="apellidos" placeholder="Ingresa Tu Nombre" required />
+          </div>
+          <div class="col-md-6">
+            <label for="telefono" class="form-label">TELEFONO*</label>
+            <input type="tel" class="form-control input-personalizado" id="telefono" placeholder="Ingresa Tu Nombre" required />
+          </div>
+          <div class="col-md-6">
+            <label for="pais" class="form-label">PAIS DE RESIDENCIA*</label>
+            <input type="text" class="form-control input-personalizado" id="pais" placeholder="Ingresa Tu Nombre" required />
+          </div>
+          <div class="col-md-6">
+            <label for="ciudad" class="form-label">CIUDAD DE RESIDENCIA*</label>
+            <input type="text" class="form-control input-personalizado" id="ciudad" placeholder="Ingresa Tu Nombre" required />
+          </div>
+          <div class="col-md-6">
+            <label for="tipoDoc" class="form-label">TIPO DE DOCUMENTO*</label>
+            <input type="text" class="form-control input-personalizado" id="tipoDoc" placeholder="Ingresa Tu Nombre" required />
+          </div>
+          <div class="col-md-6">
+            <label for="numDoc" class="form-label">NUMERO DE DOCUMENTO*</label>
+            <input type="text" class="form-control input-personalizado" id="numDoc" placeholder="Ingresa Tu Nombre" required />
+          </div>
+          <div class="col-12 text-center">
+            <button type="submit" class="btn btn-success btn-enviar">ENVIAR</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript para limpiar formulario -->
+  <script>
+    document.getElementById("formularioContacto").addEventListener("submit", function (e) {
+      e.preventDefault(); // evita recargar
+      alert("Formulario enviado exitosamente.");
+      this.reset(); // limpia los campos
+    });
+  </script>
+
+  <!--Footer maps-->
+  <footer class="footer text-white">
+    <div class="container py-5">
+      <div class="row text-center text-md-start">
+        <!-- Columna 1: Contacto -->
+        <div class="col-md-4 mb-4">
+          <p><i class="bi bi-buildings fs-4 me-2"></i><strong>DIRECCIÓN</strong><br>Tv. 128 #17 - 87, Fontibón, Bogotá</p>
+          <p><i class="bi bi-envelope fs-4 me-2"></i><strong>CORREO ELECTRONICO</strong><br>ejemplo@altos.fontibon.com</p>
+          <p><i class="bi bi-telephone fs-4 me-2"></i><strong>TELEFONO</strong><br>+57 310 3157550</p>
+        </div>
+
+        <!-- Columna 2: Mapa -->
+        <div class="col-md-4 mb-4 text-center">
+          <h5 class="mb-3">Mi ubicación</h5>
+          <div class="mapa-container rounded overflow-hidden">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.511010558144!2d-74.15446538523806!3d4.681405843091763!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f9da70fdc0163%3A0xf0d77e61bb9188d0!2sAltos%20de%20Fontib%C3%B3n!5e0!3m2!1ses!2sco!4v1622300000000!5m2!1ses!2sco"
+              width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+
+        <!-- Columna 3: Horarios -->
+        <div class="col-md-4 mb-4">
+          <h5><i class="bi bi-clock fs-4 me-2"></i>Horarios de atención</h5>
+          <p><strong>Lunes a Viernes</strong><br>9:00 am - 5:00pm</p>
+          <p><strong>Sábados a Domingos</strong><br>9:00 am - 5:00pm</p>
+        </div>
+      </div>
+
+      <!-- Redes sociales -->
+      <div class="d-flex justify-content-center gap-3 mb-3">
+        <a href="#" class="text-white fs-3"><i class="bi bi-facebook"></i></a>
+        <a href="#" class="text-white fs-3"><i class="bi bi-x"></i></a>
+        <a href="#" class="text-white fs-3"><i class="bi bi-whatsapp"></i></a>
+      </div>
+
+      <!-- Créditos -->
+      <p class="text-center small">Copyrights © 2019. Todos los derechos son reservados, Desarrollada por 
+        <a href="https://www.figma.com" class="text-white text-decoration-underline" target="_blank">Figma.com</a>
+      </p>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,160 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Altos de Fontibón</title>
+  <link rel="stylesheet" href="{% static 'css/usuario/login.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="{% static 'Usuario/fonts.css' %}">
+</head>
+<style>
+body {
+  height: 100vh;
+  background: url("/static/img/fondito.jpg")no-repeat center center/cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+/* Ajustes para que el input respete los íconos */
+#id_contraseña {
+  padding-left: 35px;   /* espacio para el candado */
+  padding-right: 3px;  /* espacio para el ojo */
+  box-sizing: border-box;
+}
+
+.redireccion {
+  position: fixed; /* Se fija en la ventana del navegador */
+  top: 10px;       /* 10px desde la parte superior */
+  left: 10px;      /* 10px desde el borde izquierdo */
+  padding: 10px 20px; /* Ajusta el relleno a tu gusto */
+  background-color: #009b7d; /* Color de fondo */
+  color: white;       /* Color del texto */
+  border: none;       /* Sin borde */
+  cursor: pointer;    /* Cursor de mano al pasar por encima */
+  border-radius: 5px; /* Bordes redondeados */
+  z-index: 1000;      /* Para asegurar que esté sobre otros elementos */
+  cursor: pointer;
+  border-radius: 15px;
+  text-decoration: none;
+  border: none;
+  font-weight: bold;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.redireccion:hover {
+  background: #02ac8a;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.error {
+  position: fixed;
+  top: -100px; /* empieza fuera de la pantalla */
+  left: 50%;
+  transform: translateX(-50%);
+  background: #daa520;
+  color: #ffffff;
+  padding: 15px 25px;
+  border-radius: 10px;
+  font-weight: bold;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+  z-index: 2000;
+  animation: slideDown 0.5s ease forwards, hideAlert 0.5s ease forwards 3s;
+}
+
+.success {
+  position: fixed;
+  top: -100px; /* empieza fuera de la pantalla */
+  left: 50%;
+  transform: translateX(-50%);
+  background: #009c5c;
+  color: #ffffff;
+  padding: 15px 25px;
+  border-radius: 10px;
+  font-weight: bold;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+  z-index: 2000;
+  animation: slideDown 0.5s ease forwards, hideAlert 0.5s ease forwards 3s;
+}
+
+/* Animación para que baje desde arriba */
+@keyframes slideDown {
+  from { top: -100px; opacity: 0; }
+  to { top: 20px; opacity: 1; }
+}
+
+/* Animación para que vuelva a subir y se esconda */
+@keyframes hideAlert {
+  from { top: 20px; opacity: 1; }
+  to { top: -100px; opacity: 0; }
+}
+
+
+
+</style>
+<body>
+  <div class="container">
+    <!-- Imagen izquierda -->
+    <div class="image-side">
+      <img src="{% static 'IMG/imagen-login.png' %}" alt="Imagen referencial">
+    </div>
+
+    <!-- Formulario -->
+    <div class="form-side">
+      <div class="logo">
+        <img src="{% static 'IMG/Logo Fontibon.png' %}" alt="Altos de Fontibón" <a href="{% url 'index' %}"></a>
+        <h1>¡Fontibón Contigo!</h1>
+        <p>Conoce y gestiona todo sobre tu <br>próximo <b>apartamento</b>.</p>
+      </div>
+
+      <form method="POST">
+        {% csrf_token %}
+
+        <div class="alert_alert">
+          {% for message in messages %}
+        <div class="alert {{ message.tags }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+
+        <div class="input-box">
+          <p style="margin-bottom: 2px; text-align: left; font-size: 14px; color:#026e59;" >Ingresa tu numero de documento</p>
+          <i class="fa fa-user" style="margin: 9px 0 0 0; "></i>
+          {{ form.numero_documento }}
+        </div>
+
+        <div class="input-box">
+          <p style="margin-bottom: 2px; text-align: left; font-size: 14px; color: #026e59;">Ingresa tu contraseña</p> 
+          <div style="position: relative; width: 100%;">
+            <!-- Ícono candado -->
+            <i class="fa fa-lock" style="position: absolute; top: 50%; left: 10px; transform: translateY(-50%);"></i>
+            <!-- Input contraseña -->
+            {{ form.contraseña }}
+            <!-- Ícono ojo -->
+            <i class="fa fa-eye toggle-password" onclick="togglePassword()" style="margin: 0 0 0 261px;"></i>
+          </div>
+      </div>
+      <script src="{% static 'js/usuario/login.js' %}"></script>
+
+
+        <div class="btn-box">
+        <button class="btn" type="submit">Ingresar</button>
+        <a href="{% url 'index' %}" class="redireccion">Ir al inicio</a>
+        </div>
+
+        <a href="{% url 'solicitar_reset' %}" class="forgot">¿Has olvidado tu contraseña?</a>
+      <div class="links">
+        <a href="#">Términos y condiciones</a> 
+        <a href="#">Política de privacidad</a>
+        <p class="forgot">¿No tienes cuenta? 
+        <a href="{% url 'register' %}">Regístrate</a>
+        </p>
+      </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

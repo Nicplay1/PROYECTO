@@ -1,0 +1,166 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  background: url("/static/IMG/fondo-login.jpg") no-repeat center center/cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  width: 90%;
+  max-width: 1100px;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0px 4px 20px rgba(0,0,0,0.2);
+}
+
+/* Imagen izquierda */
+.image-side {
+  flex: 1;
+}
+.image-side img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 3%;
+}
+
+/* Formulario */
+.form-side {
+  /* Hacemos esta sección más pequeña */
+  flex: 0.8; /* */
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/* Centra y une el logo y el texto */
+.logo {
+  display: flex; /* */
+  flex-direction: column; /* */
+  align-items: center; /* */
+  margin-bottom: 20px; /* */
+}
+
+.logo img {
+  /* Ajustamos el tamaño del logo para que no sea tan grande */
+  height: 110px; /* */
+  width: auto;
+  margin-bottom: 10px; /* */
+}
+
+h1 {
+  color: #009c5c;
+  font-size: 35px; /* Reducimos el tamaño de la fuente */
+  margin: 0; /* Eliminamos el margen por defecto */
+  font-family: 'Montserrat';
+}
+
+p {
+  font-size: 12px; /* Reducimos el tamaño de la fuente */
+  color: #000000;
+  margin: 5px 0 0 0; /* Eliminamos márgenes y añadimos un pequeño espacio arriba */
+  font-family: 'Montserrat';
+}
+
+form {
+  /* Aseguramos que el formulario esté centrado y tenga un ancho máximo */
+  width: 100%;
+  max-width: 300px; /* */
+  margin-top: 20px;
+}
+
+.input-box {
+  position: relative;
+  width: 100%; /* Corregimos el 150% que lo sacaba de centro */
+  margin-bottom: 15px;
+  
+}
+
+.input-box i {  /* estos son para los iconos del login */
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  color: #777;
+}
+
+.input-box input {
+  width: 100%;
+  padding: 12px 12px 12px 35px;
+  border: 1px solid #000000;
+  border-radius: 6px;
+  outline: none;
+  
+}
+
+
+.btn {
+  width: 100%;
+  padding: 9px;
+  background: #ffcc00;
+  color: #f3f3f3;
+  font-size: 16px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+  text-align: center;
+  display: inline-block;
+  text-decoration: none;
+  margin: 6px 6px 6px 6px;
+}
+
+.alert {
+  background-color: #37d895;
+  color: white;
+  font-weight: bold;
+  margin: 15px;
+}
+
+.btn-box .btn:hover {
+  background: #ffb300;
+}
+
+
+.forgot {
+  font-size: 14px;
+  margin-top: 15px;
+  color: #009c5c;
+  text-decoration: none;
+}
+
+.links {
+  margin-top: 15px;
+  font-size: 12px;
+}
+
+.links a {
+  color: #009c5c;
+  text-decoration: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    max-width: 500px;
+  }
+  .image-side {
+    height: 200px;
+  }
+  .form-side {
+    padding: 20px;
+  }
+}

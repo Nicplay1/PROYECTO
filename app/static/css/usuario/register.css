@@ -1,0 +1,259 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  background: url("/static/IMG/fondo-login.jpg") no-repeat center center/cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Montserrat', Arial, sans-serif;
+}
+
+.container {
+  display: flex;
+  width: 85%;
+  max-width: 950px;
+  background: #fff;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0px 8px 30px rgba(0,0,0,0.15);
+  min-height: 60px;
+  max-height: 750px;;
+  display: flex;
+  flex-wrap: wrap;  /* Permite que los elementos salten a la siguiente fila */
+  gap: 10px;
+}
+
+.input-box {
+  position: relative;
+  width: 100%; /* Corregimos el 150% que lo sacaba de centro */
+  margin-bottom: 15px;
+  flex-direction: column;
+  display: flex;
+  flex-wrap: wrap;  /* Permite que los elementos salten a la siguiente fila */
+  gap: 10px;
+}
+
+.input-box i {  /* estos son para los iconos del login */
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  color: #777;
+}
+
+.input-box input {
+  width: 100%;
+  padding: 12px 12px 12px 35px;
+  border: 1px solid #000000;
+  border-radius: 6px;
+  outline: none;
+  
+}
+
+.input-box input:focus {
+  border-color: #009c5c;
+}
+
+.input-box select {
+  width: 100%;
+  height: 40px;
+  border: 1px solid #000000;
+  border-radius: 6px;
+  outline: none;
+  font-size: 14px;
+  color: #777;
+  background-color: white;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.input-box select:focus {
+  border-color: #009c5c;
+}
+
+/* Imagen izquierda */
+.image-side {
+  flex: 1;
+  height: 800px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.image-side img {
+  height: 99%;
+  object-fit: cover;
+  border-radius: 10px;
+  z-index: 1;
+  position: relative;
+}
+
+
+
+/* Formulario */
+.form-side {
+  flex: 1.1;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.logo img {
+  height: 100px;
+  width: auto;
+  margin-bottom: 8px;
+}
+
+h1 {
+  color: #009c5c;
+  font-size: 28px;
+  margin: 0;
+  font-family: 'Montserrat';
+  font-weight: 600;
+}
+
+/* Alertas */
+.alert-container {
+  width: 100%;
+  max-width: 380px;
+  margin-bottom: 15px;
+}
+
+.alert {
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.alert-success {
+  background-color: #009c5c;
+  color: white;
+  font-weight: bold;
+}
+
+form {
+  width: 100%;
+  max-width: 380px;
+  margin-top: 15px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 15px;
+}
+
+.form-side {
+  flex: 1.1;
+  padding: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.btn {
+  width: 100%;
+  padding: 12px;
+  background: #ffcc00;
+  color: #ffffff;
+  font-size: 16px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  margin-bottom: 15px;
+}
+
+.btn:hover {
+  background: #ffb300;
+}
+
+.forgot {
+  font-size: 13px;
+  margin-top: 10px;
+  color: #009c5c;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.forgot:hover {
+  color: #007a47;
+}
+
+.links {
+  margin-top: 12px;
+  font-size: 11px;
+  text-align: center;
+}
+
+.links a {
+  color: #ffb300;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.links a:hover {
+  color: #21ca84;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    max-width: 450px;
+    width: 95%;
+  }
+
+  .image-side {
+    height: 18px;
+    flex: none;
+  }
+  
+  .form-side {
+    padding: 25px 20px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    max-width: 350px;
+  }
+  
+  .form-side {
+    padding: 20px 15px;
+  }
+  
+  form {
+    max-width: 100%;
+  }
+}

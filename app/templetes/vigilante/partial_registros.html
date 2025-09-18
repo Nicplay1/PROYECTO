@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<table class="table table-striped mt-2">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Tipo</th>
+            <th>Descripción</th>
+            <th>Fecha Registro</th>
+            <th>Acción</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for registro in registros %}
+        <tr>
+            <td>{{ registro.id_correspondencia }}</td>
+            <td>{{ registro.tipo }}</td>
+            <td>{{ registro.descripcion }}</td>
+            <td>{{ registro.fecha_registro }}</td>
+            <td>
+                <button class="btn btn-primary btn-entregar" data-idcorres="{{ registro.id_correspondencia }}" data-idres="{{ residente.id_detalle_residente }}">
+                    Entregar
+                </button>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">No hay registros disponibles para este residente.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+</body>
+</html>

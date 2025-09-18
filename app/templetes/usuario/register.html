@@ -1,0 +1,125 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registro - Altos de Fontibón</title>
+    <link rel="stylesheet" href="{% static 'css/usuario/register.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="fonts.css" />
+  </head>
+  <style>
+    body {
+      height: 100vh;
+      background: url("/static/img/fondito.jpg") no-repeat center center/cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: "Montserrat", Arial, sans-serif;
+    }
+  </style>
+  <body>
+    <div class="container">
+      <!-- Imagen izquierda -->
+      <div class="image-side">
+        <img
+          src="{% static '/IMG/imagen-register.jpg' %}"
+          alt="Altos de Fontibón"
+        />
+      </div>
+
+      <!-- Formulario -->
+      <div class="form-side">
+        <div class="logo">
+          <img
+            src="{% static '/IMG/Logo Fontibon - 1.jpg' %}"
+            alt="Altos de Fontibón"
+          />
+          <h1>¡Fontibón Contigo!</h1>
+        </div>
+
+        <!-- mensajes de django -->
+        <div class="alert-container">
+          {% for message in messages %}
+          <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+
+        <!-- formulario -->
+        <form method="POST">
+          {% csrf_token %}
+
+          <div class="form-grid">
+            <div class="input-box">
+              <i class="fa fa-user"></i>
+              {{ form.nombres }}
+            </div>
+            <div class="input-box">
+              <i class="fa fa-user"></i>
+              {{ form.apellidos }}
+            </div>
+            <div class="input-box">{{ form.tipo_documento }}</div>
+            <div class="input-box">
+              <i class="fa fa-id-card"></i>
+              {{ form.numero_documento }}
+            </div>
+            <div class="input-box">
+              <i class="fa fa-envelope"></i>
+              {{ form.correo }}
+            </div>
+            <div class="input-box">
+              <i class="fa fa-phone"></i>
+              {{ form.telefono }}
+            </div>
+            <div class="input-box">
+              <i class="fa fa-phone"></i>
+              {{ form.celular }}
+            </div>
+            <div class="input-box">
+              <div style="position: relative; width: 100%">
+                <!-- Ícono candado -->
+                <i
+                  class="fa fa-lock"
+                  style="
+                    position: absolute;
+                    top: 50%;
+                    left: 10px;
+                    transform: translateY(-50%);
+                  "
+                ></i>
+                <!-- Input contraseña -->
+                {{ form.contraseña }}
+                <!-- Ícono ojo -->
+                <i
+                  class="fa fa-eye toggle-password"
+                  onclick="togglePassword()"
+                  style="margin: 0 0 0 140px"
+                ></i>
+              </div>
+              <script src="{% static 'js/usuario/register.js' %}"></script>
+            </div>
+            <div class="input-box">
+              <i class="fa fa-lock"></i>
+              {{ form.confirmar_contraseña }}
+            </div>
+          </div>
+
+          <button class="btn" type="submit">Registrarse</button>
+        </form>
+
+        <div class="links">
+          <a href="#">Términos y condiciones</a>
+          <a href="#">Política de privacidad</a>
+          <p class="forgot">
+            ¿Ya tienes cuenta?
+            <a href="{% url 'login' %}">Inicia sesión</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
